@@ -1,10 +1,9 @@
 import requests  
 from botHandler import BotHandler 
 from blinkTradeApi import BlinkTradeApi
+from boto.s3.connection import S3Connection
 
-t_file = open("token.txt","r")
-token = t_file.read()
-t_file.close()
+token = s3 = S3Connection(os.environ['token'])
 
 bot = BotHandler(token)  
 api = BlinkTradeApi("BRL", "BTC")
