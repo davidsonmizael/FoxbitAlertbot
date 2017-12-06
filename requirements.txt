@@ -1,1 +1,3 @@
 requests
+S3Connection
+boto.s3.connection
