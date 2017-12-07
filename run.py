@@ -9,6 +9,7 @@ token = os.environ.get('token', None)
 bot = BotHandler(token)  
 api = BlinkTradeApi("BRL", "BTC")
 
+
 def format_status(status):
     high = 'R${:,.2f}'.format(float(status["high"]))
     low = 'R${:,.2f}'.format(float(status["low"]))
@@ -61,21 +62,23 @@ def main():
             last_chat_id = last_update['message']['chat']['id']
             last_chat_name = last_update['message']['from']['first_name']
 
-            if last_chat_text.lower() == '/status':            
+            if '/status' in last_chat_text.lower():            
                 bot.send_message(last_chat_id, format_status(api.get_last_status()))
-            elif last_chat_text.lower() == '/variance':
+            elif '/variance' in last_chat_text.lower():
                 bot.send_message(last_chat_id, "Variance between Buy and Low is: " + str('{:,.2f}'.format(api.get_buylow_variance())))
-            elif last_chat_text.lower() == '/subscribe':
-                bot.send_message(last_chat_id, save_id(last_chat_id))
-            elif last_chat_text.lower() == '/unsubscribe':
-                bot.send_message(last_chat_id, remove_id(last_chat_id))
+            elif '/subscribe' in last_chat_text.lower():
+                bot.send_message(last_chat_id, "Option disabled.")
+                #bot.send_message(last_chat_id, save_id(last_chat_id))
+            elif '/unsubscribe' in last_chat_text.lower():
+                bot.send_message(last_chat_id, "Option disabled.")
+                #bot.send_message(last_chat_id, remove_id(last_chat_id))
             
-        variance = api.get_buylow_variance()
-        spected_var = 10
-        if variance < spected_var:
-            variance_value = str('{:,.2f}'.format(api.get_buylow_variance()))
-            message = "Variance is lower than %s (%s)!!!\n Type /status to see the values" % (spected_var, variance_value)
-            bot.notify_all(get_ids(), message)
+        # variance = api.get_buylow_variance()
+        # spected_var = 10
+        # if variance < spected_var:
+        #     variance_value = str('{:,.2f}'.format(api.get_buylow_variance()))
+        #     message = "Variance is lower than %s (%s)!!!\n Type /status to see the values" % (spected_var, variance_value)
+        #     bot.notify_all(get_ids(), message)
 
         new_offset = last_update_id + 1
 
