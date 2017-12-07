@@ -4,7 +4,7 @@ from blinkTradeApi import BlinkTradeApi
 from boto.s3.connection import S3Connection
 import os
 
-token = s3 = S3Connection(os.environ['token'])
+token = os.environ.get('token', None)
 
 bot = BotHandler(token)  
 api = BlinkTradeApi("BRL", "BTC")
