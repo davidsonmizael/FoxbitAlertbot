@@ -2,7 +2,7 @@ import requests
 from botHandler import BotHandler 
 from blinkTradeApi import BlinkTradeApi
 from boto.s3.connection import S3Connection
-import os
+import os, time
 
 token = os.environ.get('token', None)
 
@@ -81,6 +81,7 @@ def main():
         #     bot.notify_all(get_ids(), message)
 
         new_offset = last_update_id + 1
+        time.sleep(10)
 
 if __name__ == '__main__':  
     try:
